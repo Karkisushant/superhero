@@ -16,9 +16,9 @@ class CreatePageViewJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        private PageNameEnum $pageName,
-        private string $ipAddress,
-        private Carbon $timeStamp)
+        public PageNameEnum $pageName,
+        public string $ipAddress,
+        public Carbon $timeStamp)
     {
         //
     }
