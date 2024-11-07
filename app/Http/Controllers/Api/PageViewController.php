@@ -6,15 +6,17 @@ use App\Enums\PageNameEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePageViewRequest;
 use App\Jobs\CreatePageViewJob;
-use App\Models\PageView;
-use Illuminate\Http\Request;
 
 class PageViewController extends Controller
 {
     public function store(CreatePageViewRequest $request)
     {
-        CreatePageViewJob::dispatch(PageNameEnum::from($request->input('page_name')),$request->ip());
+        CreatePageViewJob::dispatch(
+            PageNameEnum::from($request->input('page_name')),
+            $request->ip(),
+            now()
+        );
 
-        return $this->sendSuccess('Page View Created');
+        return $this->sendSuccess('Page View being created');
     }
 }

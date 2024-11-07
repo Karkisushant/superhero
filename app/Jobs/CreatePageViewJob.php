@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Enums\PageNameEnum;
 use App\Models\PageView;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
@@ -16,7 +17,8 @@ class CreatePageViewJob implements ShouldQueue
      */
     public function __construct(
         private PageNameEnum $pageName,
-        private string $ipAddress)
+        private string $ipAddress,
+        private Carbon $timeStamp)
     {
         //
     }
@@ -28,7 +30,8 @@ class CreatePageViewJob implements ShouldQueue
     {
         PageView::create([
             'page_name'=>$this->pageName,
-            'ip_address'=>$this->ipAddress
+            'ip_address'=>$this->ipAddress,
+            'created_at'=>$this->timeStamp,
         ]);
     }
 }

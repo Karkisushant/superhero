@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Jobs\CreatePageViewJob;
 use App\Models\PageView;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -28,6 +29,8 @@ class PageViewApiTest extends TestCase
         $response->assertJson([
             'success'=>true,
         ]);
+
+        Queue::assertPushed(CreatePageViewJob::class);
     }
 
     public function test_create_page_view_name_only_support_enums(){
